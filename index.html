@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events for Mobile</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .barmaq {
+            background-color: lime;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+        #header {
+            background-color: black;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <script>
+        // document.addEventListener('touchstart',e=>{
+        //     console.log('Start');
+        // })
+        // document.addEventListener('touchmove',e=>{
+        //     console.log('Move');
+        // })
+        // document.addEventListener('touchend',e=>{
+        //     console.log('End');
+        // })
+        const header = document.getElementById('header');
+
+        header.addEventListener('touchstart', e => {
+            console.log("Toxunus", e.touches.length);
+            console.log("Headere toxunus", e.targetTouches.length);
+        })
+
+        document.addEventListener('touchstart', e => {
+            [...e.changedTouches].forEach(toxunus => {
+                const barmaq = document.createElement('div');
+                barmaq.classList.add('barmaq');
+                barmaq.style.top = `${ toxunus.pageY } px`;
+                barmaq.style.left = `${ toxunus.pageX } px`;
+                barmaq.id = toxunus.identifier;
+                document.body.append(barmaq);
+            });
+        })
+
+        document.addEventListener('touchmove', e => {
+            [...e.changedTouches].forEach(toxunus => {
+                const leman = document.getElementById(toxunus.identifier);
+                leman.style.top = `${ toxunus.pageY } px`;
+                leman.style.left =` ${ toxunus.pageX } px`;
+            })
+        })
+
+        document.addEventListener('touchend', e => {
+            [...e.changedTouches].forEach(toxunus => {
+                const finger = document.getElementById(toxunus.identifier);
+                finger.remove();
+            })
+        })
+    </script>
+</body>
+
+</html>
